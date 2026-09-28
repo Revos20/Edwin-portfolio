@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edwin Otieno Odhiambo - Professional Portfolio</title>
+    <!-- External Modular CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Professional Header Navbar -->
+    <header class="portfolio-header">
+        <div class="header-brand">Edwin Otieno Odhiambo</div>
+        <nav class="header-nav">
+            <span class="nav-tab active" onclick="switchPage(0)">Cover & Overview</span>
+            <span class="nav-tab" onclick="switchPage(1)">Key Projects</span>
+            <span class="nav-tab" onclick="switchPage(2)">Network & Infrastructure</span>
+            <span class="nav-tab" onclick="switchPage(3)">Technical Skills</span>
+            <span class="nav-tab" onclick="switchPage(4)">Contact & Referees</span>
+        </nav>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="booklet-workspace">
+        
+        <!-- Sidebar Navigation Index -->
+        <aside class="portfolio-sidebar">
+            <div class="sidebar-title">Table of Contents</div>
+            <ul class="file-tree">
+                <li class="active" onclick="switchPage(0)"><span>📄</span> 01. Professional Profile</li>
+                <li onclick="switchPage(1)"><span>💻</span> 02. Key Projects & Systems</li>
+                <li onclick="switchPage(2)"><span>🔌</span> 03. Infrastructure & Labs</li>
+                <li onclick="switchPage(3)"><span>⚙️</span> 04. Technical Arsenal</li>
+                <li onclick="switchPage(4)"><span>📬</span> 05. Contact & Referees</li>
+            </ul>
+        </aside>
+
+        <!-- Booklet Content Area -->
+        <section class="editor-container">
+            
+            <div class="booklet-viewport">
+                <!-- Page Containers -->
+                <div id="page-0-container"></div>
+                <div id="page-1-container"></div>
+                <div id="page-2-container"></div>
+                <div id="page-3-container"></div>
+                <div id="page-4-container"></div>
+            </div>
+
+            <!-- Booklet Navigation Footer -->
+            <div class="booklet-nav">
+                <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>&larr; Previous Page</button>
+                <div class="page-indicator" id="page-indicator">Section 1 of 5</div>
+                <button class="nav-btn" id="next-btn" onclick="changePage(1)">Next Page &rarr;</button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Loader Script to Inject Sub-files Dynamically -->
+    <script>
+        async function loadSubPages() {
+            const pages = [
+                { id: 'page-0-container', file: 'pages/page1-cover.html' },
+                { id: 'page-1-container', file: 'pages/page2-projects.html' },
+                { id: 'page-2-container', file: 'pages/page3-network.html' },
+                { id: 'page-3-container', file: 'pages/page4-skills.html' },
+                { id: 'page-4-container', file: 'pages/page5-contact.html' }
+            ];
+
+            for (let p of pages) {
+                try {
+                    let response = await fetch(p.file);
+                    let html = await response.text();
+                    document.getElementById(p.id).outerHTML = html;
+                } catch (e) {
+                    console.error("Error loading " + p.file, e);
+                }
+            }
+        }
+        loadSubPages();
+    </script>
+
+    <!-- External Modular JavaScript -->
+    <script src="js/booklet.js"></script>
+</body>
+</html>
